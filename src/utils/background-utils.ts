@@ -133,7 +133,7 @@ const spiral = function (
 	return new THREE.Vector3(r * Math.cos(theta), r * Math.sin(theta), z);
 };
 
-const assignColorAndSizeAtIndex = function (
+export const assignColorAndSizeAtIndex = function (
 	obj: Star | HazePoint,
 	colors: Float32Array,
 	sizes: Float32Array,
@@ -148,4 +148,15 @@ const assignColorAndSizeAtIndex = function (
 
 const isStar = function (obj: Star | HazePoint): obj is Star {
 	return "rarity" in obj;
+};
+
+export const generateStarProps = function (stars: Star[]): Star {
+	let rarity = Math.random() * 100.0;
+	for (const star of stars) {
+		rarity -= star.rarity;
+		if (rarity < 0) {
+			return star;
+		}
+	}
+	return stars[stars.length - 1];
 };

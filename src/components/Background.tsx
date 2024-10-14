@@ -8,6 +8,7 @@ import {
 } from "@react-three/postprocessing";
 import Galaxy from "./Galaxy";
 import { ToneMappingMode } from "postprocessing";
+import FixedStars from "./FixedStars";
 
 export default function Background() {
 	const camera = new THREE.PerspectiveCamera(
@@ -26,6 +27,7 @@ export default function Background() {
 				<ToneMapping mode={ToneMappingMode.ACES_FILMIC} />
 			</EffectComposer>
 			<Galaxy position={[-500, 75, -1400]} rotation={[0.4, 0, -0.5]} />
+			<FixedStars />
 		</Canvas>
 	);
 }

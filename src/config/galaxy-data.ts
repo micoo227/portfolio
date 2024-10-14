@@ -21,6 +21,8 @@ export const constants = {
 	HAZE_MAX: 100.0,
 	HAZE_MIN: 30.0,
 	HAZE_BLOOM_INTENSITY: 1,
+
+	FIXED_STARS_BLOOM_INTENSITY: 0.25,
 };
 
 export interface Star {

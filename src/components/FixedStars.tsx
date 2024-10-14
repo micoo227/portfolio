@@ -1,31 +1,51 @@
-import { useRef } from "react";
+import { constants, Star } from "../config/galaxy-data";
 import * as THREE from "three";
-import { GalaxyComponent, Star } from "../config/galaxy-data";
 import {
-	generateGalaxyComponent,
+	assignColorAndSizeAtIndex,
 	generateStarProps,
 } from "../utils/background-utils";
-import { useFrame, useLoader } from "@react-three/fiber";
+import { useLoader } from "@react-three/fiber";
 import { fragmentShader, vertexShader } from "../config/shaders";
-import Sun from "./Sun";
-import Haze from "./Haze";
 
-export default function Galaxy({ position, rotation }) {
-	const galaxyRef = useRef<THREE.Points>(null);
+interface FixedStarsProps {
+	numStars?: number;
+	spread?: number;
+}
 
+export default function FixedStars({
+	numStars = 30000,
+	spread = 2,
+}: FixedStarsProps) {
 	const stars: Star[] = [
 		{ rarity: 76.45, color: "0xffcc6f", size: 0.7 },
 		{ rarity: 12.1, color: "0xffd2a1", size: 0.96 },
 		{ rarity: 7.6, color: "0xfff4ea", size: 1.15 },
 		{ rarity: 3.0, color: "0xf8f7ff", size: 1.48 },
-		{ rarity: 0.6, color: "0xcad7ff", size: 2.0 },
-		{ rarity: 0.13, color: "0xaabfff", size: 2.5 },
+		{ rarity: 0.6, color: "0xcad7ff", size: 4.0 },
+		{ rarity: 0.13, color: "0xaabfff", size: 5.0 },
 	];
 
-	const [vertices, colors, sizes] = generateGalaxyComponent(
-		GalaxyComponent.Stars,
-		generateStarProps.bind(null, stars)
-	);
+	const vertices = new Float32Array(numStars * 3);
+	const colors = new Float32Array(numStars * 3);
+	const sizes = new Float32Array(numStars);
+
+	const vertex = new THREE.Vector3();
+
+	for (let i = 0; i < numStars; i++) {
+		vertex.x = (Math.random() * 2 - 1) * spread * 2;
+		vertex.y = (Math.random() * 2 - 1) * spread;
+		vertex.z = 1;
+		vertex.toArray(vertices, i * 3);
+
+		const star = generateStarProps(stars);
+		assignColorAndSizeAtIndex(
+			star,
+			colors,
+			sizes,
+			i * 3,
+			constants.FIXED_STARS_BLOOM_INTENSITY
+		);
+	}
 
 	const geometry = new THREE.BufferGeometry();
 	geometry.setAttribute(
@@ -40,7 +60,7 @@ export default function Galaxy({ position, rotation }) {
 	const mat = new THREE.ShaderMaterial({
 		uniforms: {
 			opacity: { value: 1.0 },
-			sizeMultiplier: { value: 7.5 },
+			sizeMultiplier: { value: 1.0 },
 			spriteTexture: { value: sprite },
 		},
 		vertexShader: vertexShader,
@@ -51,27 +71,5 @@ export default function Galaxy({ position, rotation }) {
 		vertexColors: true,
 	});
 
-	useFrame(() => {
-		if (galaxyRef.current) galaxyRef.current.rotateY(0.00005);
-	});
-
-	return (
-		<>
-			<points
-				ref={galaxyRef}
-				geometry={geometry}
-				material={mat}
-				position={position}
-				rotation={rotation}
-			/>
-			<Sun position={position} />
-			<Haze
-				position={position}
-				rotation={rotation}
-				sizeMultiplier={7.5}
-				color={"0x3f78d4"}
-				opacity={0.009}
-			/>
-		</>
-	);
+	return <points geometry={geometry} material={mat} position={[0, 0, -5]} />;
 }
