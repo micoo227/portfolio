@@ -1,6 +1,6 @@
 import { useRef } from "react";
 import * as THREE from "three";
-import { GalaxyComponent, Star } from "../config/galaxy-data";
+import { constants, GalaxyComponent, Star } from "../config/galaxy-data";
 import {
 	generateGalaxyComponent,
 	generateStarProps,
@@ -57,7 +57,8 @@ export default function Galaxy({ position, rotation }: GalaxyProps) {
 	});
 
 	useFrame(() => {
-		if (galaxyRef.current) galaxyRef.current.rotateY(0.00005);
+		if (galaxyRef.current)
+			galaxyRef.current.rotateY(constants.GALAXY_ROTATION_SPEED);
 	});
 
 	return (

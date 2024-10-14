@@ -67,7 +67,8 @@ export default function Haze({
 	});
 
 	useFrame(() => {
-		if (hazeRef.current) hazeRef.current.rotateY(0.00005);
+		if (hazeRef.current)
+			hazeRef.current.rotateY(constants.GALAXY_ROTATION_SPEED);
 	});
 
 	return (
