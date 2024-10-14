@@ -10,7 +10,12 @@ import { fragmentShader, vertexShader } from "../config/shaders";
 import Sun from "./Sun";
 import Haze from "./Haze";
 
-export default function Galaxy({ position, rotation }) {
+interface GalaxyProps {
+	position: THREE.Vector3 | [x: number, y: number, z: number];
+	rotation: THREE.Euler | [x: number, y: number, z: number];
+}
+
+export default function Galaxy({ position, rotation }: GalaxyProps) {
 	const galaxyRef = useRef<THREE.Points>(null);
 
 	const stars: Star[] = [

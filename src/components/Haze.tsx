@@ -6,13 +6,21 @@ import { useFrame, useLoader } from "@react-three/fiber";
 import { clamp } from "three/src/math/MathUtils.js";
 import { fragmentShader, vertexShader } from "../config/shaders";
 
+interface HazeProps {
+	position: THREE.Vector3 | [x: number, y: number, z: number];
+	rotation: THREE.Euler | [x: number, y: number, z: number];
+	sizeMultiplier: number;
+	color: string;
+	opacity: number;
+}
+
 export default function Haze({
 	position,
 	rotation,
 	sizeMultiplier,
 	color,
 	opacity,
-}) {
+}: HazeProps) {
 	const hazeRef = useRef<THREE.Points>(null);
 
 	const generateHazeProps = function (): HazePoint {
