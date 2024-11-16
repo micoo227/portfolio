@@ -31,10 +31,7 @@ export const standardVertexShader = `
     }
 `;
 
-export const deepFogFragmentShader = `
-    uniform float uTime;
-    uniform vec2 uResolution;
-
+const fbmUtils = `
     float random(vec2 st) {
         return fract(sin(dot(st.xy, vec2(12.9898, 78.233))) *
             43758.5453123);
@@ -59,31 +56,37 @@ export const deepFogFragmentShader = `
             (d - b) * u.x * u.y;
     }
 
-    float fbm(vec2 st) {
+    float fbm6(vec2 st) {
         float amplitude = 0.5;
-        float frequency = 1.0;
-
         float value = 0.0;
 
-        for(int i = 0; i < 6; i++) {
+        for (int i = 0; i < 6; i++) {
             value += amplitude * noise(st);
             st *= 2.0;
             amplitude *= 0.5;
         }
+
         return value;
     }
+`;
+
+export const deepFogFragmentShader = `
+    uniform float uTime;
+    uniform vec2 uResolution;
+
+    ${fbmUtils}
 
     void main() {
         vec2 st = (2.0 * gl_FragCoord.xy - uResolution.xy) / uResolution.y;
 
-        vec2 q = vec2(fbm(st + vec2(0.0, 0.0)),
-                      fbm(st + vec2(10.2, 1.3)));
+        vec2 q = vec2(fbm6(st + vec2(0.0, 0.0)),
+                      fbm6(st + vec2(10.2, 1.3)));
 
         vec2 curlDistort = 0.1 * vec2(sin(st.y * 1.0 + uTime), cos(st.x * 1.0 - uTime));
 
-        float fbm1 = fbm(st + curlDistort + 10.0 * q + vec2(0.1 * uTime, -0.1 * uTime));
-        float fbm2 = fbm(st + curlDistort + 10.0 * q + vec2(-0.1 * uTime, 0.1 * uTime));
-        float fbmResult = mix(fbm1, fbm2, 0.5);
+        float f1 = fbm6(st + curlDistort + 10.0 * q + vec2(0.1 * uTime, -0.1 * uTime));
+        float f2 = fbm6(st + curlDistort + 10.0 * q + vec2(-0.1 * uTime, 0.1 * uTime));
+        float fbmResult = mix(f1, f2, 0.5);
 
         fbmResult *= 0.85;
         fbmResult = pow(fbmResult, 3.0);
@@ -91,6 +94,24 @@ export const deepFogFragmentShader = `
         vec3 tint = vec3(0.2, 0.2, 1.0);
         vec3 finalColor = mix(grayscaleColor, tint, 0.5);
 
+        gl_FragColor = vec4(finalColor, fbmResult);
+    }
+`;
+
+export const wispyFragmentShader = `
+    uniform float uTime;
+    uniform vec2 uResolution;
+
+    ${fbmUtils}
+
+    void main() {
+        vec2 st = (2.0 * gl_FragCoord.xy - uResolution.xy) / uResolution.y;
+
+        float fbmResult = fbm6(st * 2.0 + vec2(uTime * -0.1));
+        fbmResult *= 0.5;
+        vec3 grayscaleColor = vec3(fbmResult);
+        vec3 tint = vec3(0.2, 0.2, 1.0);
+        vec3 finalColor = mix(grayscaleColor, tint, 0.5);
         gl_FragColor = vec4(finalColor, fbmResult);
     }
 `;

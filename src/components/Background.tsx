@@ -1,9 +1,22 @@
 import * as THREE from "three";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { useMemo, useRef } from "react";
-import { standardVertexShader, deepFogFragmentShader } from "../config/shaders";
+import {
+	standardVertexShader,
+	deepFogFragmentShader,
+	wispyFragmentShader,
+} from "../config/shaders";
 
-function DeepFog() {
+enum FogType {
+	Deep,
+	Wispy,
+}
+
+interface FogProps {
+	fogType: FogType;
+}
+
+function Fog({ fogType }: FogProps) {
 	const materialRef = useRef<THREE.ShaderMaterial>(null);
 	const { size } = useThree();
 
@@ -29,6 +42,16 @@ function DeepFog() {
 		}
 	});
 
+	let fragShader: string;
+	switch (fogType) {
+		case FogType.Deep:
+			fragShader = deepFogFragmentShader;
+			break;
+		case FogType.Wispy:
+			fragShader = wispyFragmentShader;
+			break;
+	}
+
 	return (
 		<mesh>
 			<planeGeometry args={[size.width, size.height]} />
@@ -36,7 +59,7 @@ function DeepFog() {
 				ref={materialRef}
 				uniforms={uniforms}
 				vertexShader={standardVertexShader}
-				fragmentShader={deepFogFragmentShader}
+				fragmentShader={fragShader}
 				depthTest={false}
 				transparent={true}
 			/>
@@ -48,7 +71,8 @@ export default function Background() {
 	return (
 		<Canvas orthographic={true} dpr={window.devicePixelRatio}>
 			<color attach="background" args={["#060221"]} />
-			<DeepFog />
+			<Fog fogType={FogType.Deep} />
+			<Fog fogType={FogType.Wispy} />
 		</Canvas>
 	);
 }
