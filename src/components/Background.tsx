@@ -6,6 +6,7 @@ import {
 	deepFogFragmentShader,
 	wispyFragmentShader,
 } from "../config/shaders";
+import gsap from "gsap";
 
 enum FogType {
 	Deep,
@@ -35,10 +36,19 @@ function Fog({ fogType }: FogProps) {
 		[]
 	);
 
+	const cursorPos = new THREE.Vector2();
+
 	useFrame(({ clock, size }) => {
 		if (materialRef.current) {
+			gsap.to(cursorPos, {
+				x: pointer.x,
+				y: pointer.y,
+				duration: 1.5,
+				ease: "power3.out",
+			});
+
 			materialRef.current.uniforms.uTime.value = clock.getElapsedTime();
-			materialRef.current.uniforms.uMouse.value.set(pointer.x, pointer.y);
+			materialRef.current.uniforms.uMouse.value.set(cursorPos.x, cursorPos.y);
 			materialRef.current.uniforms.uResolution.value.set(
 				size.width,
 				size.height
