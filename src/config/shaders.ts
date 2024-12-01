@@ -140,11 +140,22 @@ export const deepFogFragmentShader = `
 
         fbmResult *= 0.85;
         fbmResult = pow(fbmResult, 3.0);
-        vec3 grayscaleColor = vec3(fbmResult);
-        vec3 tint = vec3(0.2, 0.2, 1.0);
-        vec3 finalColor = mix(grayscaleColor, tint, 0.5);
 
-        gl_FragColor = vec4(finalColor, fbmResult);
+        vec3 lightPosition = vec3(-40., 20., 40.);
+        float bgLightAmount = pow(max(dot(rd, normalize(lightPosition - ro)), 0.), 2.0);
+        bgLightAmount += (1.0 - bgLightAmount) * 0.15;
+
+        vec3 bgLightColor = mix(vec3(.0, .0, .05), vec3(0.2, 0.9, 1.0), bgLightAmount);
+
+        // Dithering to break up visual bands within the shading
+        float ditheringNoise = random(st) * 0.005;
+        bgLightColor += ditheringNoise;
+
+        vec3 finalColor = bgLightColor;
+        vec3 deepFog = bgLightColor * fbmResult;
+        finalColor += deepFog;
+
+        gl_FragColor = vec4(finalColor, 1.);
     }
 `;
 

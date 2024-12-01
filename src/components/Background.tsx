@@ -84,9 +84,8 @@ function Fog({ fogType }: FogProps) {
 export default function Background() {
 	return (
 		<Canvas dpr={window.devicePixelRatio}>
-			<color attach="background" args={["#060221"]} />
 			<Fog fogType={FogType.Deep} />
-			<Fog fogType={FogType.Wispy} />
+			{/* <Fog fogType={FogType.Wispy} /> */}
 		</Canvas>
 	);
 }
