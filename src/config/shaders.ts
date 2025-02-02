@@ -1,4 +1,4 @@
-export const vertexShader = `
+export const vertexShader = /* glsl */ `
     uniform float sizeMultiplier;
     attribute float size;
     varying vec3 vColor;
@@ -12,7 +12,7 @@ export const vertexShader = `
     }
 `;
 
-export const fragmentShader = `
+export const fragmentShader = /* glsl */ `
     uniform float opacity;
     uniform sampler2D spriteTexture;
 
@@ -25,13 +25,13 @@ export const fragmentShader = `
     }
 `;
 
-export const standardVertexShader = `
+export const standardVertexShader = /* glsl */ `
     void main() {
         gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
     }
 `;
 
-const fbmUtils = `
+const fbmUtils = /* glsl */ `
     float hash(float p) {
         p = fract(p * 0.011);
         p *= p + 7.5;
@@ -105,7 +105,7 @@ const fbmUtils = `
     }
 `;
 
-export const deepFogFragmentShader = `
+export const deepFogFragmentShader = /* glsl */ `
     uniform float uTime;
     uniform vec2 uMouse;
     uniform vec2 uResolution;
@@ -115,7 +115,7 @@ export const deepFogFragmentShader = `
     void main() {
         vec2 st = (2.0 * gl_FragCoord.xy - uResolution.xy) / uResolution.y;
 
-        vec3 ro = vec3(uMouse.x * 0.5, uMouse.y * 0.5, -3.);
+        vec3 ro = vec3(uMouse.x * -0.3, uMouse.y * -0.3, -3.);
         vec3 lookat = vec3(0.);
 
         float zoom = 1.2;
@@ -141,8 +141,8 @@ export const deepFogFragmentShader = `
         fbmResult *= 0.85;
         fbmResult = pow(fbmResult, 3.0);
 
-        vec3 lightPosition = vec3(-40., 20., 40.);
-        float bgLightAmount = pow(max(dot(rd, normalize(lightPosition - ro)), 0.), 2.0);
+        vec3 lightPos = vec3(-40., 20., 40.);
+        float bgLightAmount = pow(max(dot(rd, normalize(lightPos - ro)), 0.), 2.0);
         bgLightAmount += (1.0 - bgLightAmount) * 0.15;
 
         vec3 bgLightColor = mix(vec3(.0, .0, .05), vec3(0.2, 0.9, 1.0), bgLightAmount);
@@ -159,7 +159,7 @@ export const deepFogFragmentShader = `
     }
 `;
 
-export const wispyFragmentShader = `
+export const wispyFragmentShader = /* glsl */ `
     uniform float uTime;
     uniform vec2 uResolution;
 
