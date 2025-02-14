@@ -168,11 +168,20 @@ export const wispyFragmentShader = /* glsl */ `
     void main() {
         vec2 st = (2.0 * gl_FragCoord.xy - uResolution.xy) / uResolution.y;
 
-        float fbmResult = fbm6(st * 2.0 + vec2(uTime * -0.1));
-        fbmResult *= 0.2;
-        vec3 grayscaleColor = vec3(fbmResult);
-        vec3 tint = vec3(0.2, 0.2, 1.0);
-        vec3 finalColor = mix(grayscaleColor, tint, 0.5);
-        gl_FragColor = vec4(finalColor, fbmResult);
+        vec2 q = vec2(fbm6(st),
+                      fbm6(st + vec2(1.0, 1.0)));
+
+        vec2 r = vec2(fbm6(st + q + vec2(1.7, 9.2) + 0.75*uTime),
+                      fbm6(st + q + vec2(8.3, 2.8) + 0.625*uTime));
+
+        float f = fbm6(st + r + q + vec2(0.5*uTime, -0.75*uTime));
+
+        float alpha = f * 0.2;
+
+        vec3 grayscaleColor = vec3(f*f*f);
+        vec3 tint = vec3(0.2, 0.2, 0.2);
+        vec3 finalColor = mix(grayscaleColor, tint, 0.2);
+        
+        gl_FragColor = vec4(finalColor, alpha);
     }
 `;
