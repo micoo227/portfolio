@@ -6,7 +6,7 @@ import {
 	wispyFragmentShader,
 } from "../config/shaders";
 import gsap from "gsap";
-import { useRef } from "react";
+import { useMemo, useRef } from "react";
 
 interface FogProps {
 	wispy: boolean;
@@ -15,6 +15,21 @@ interface FogProps {
 function Fog({ wispy }: FogProps) {
 	const materialRef = useRef<THREE.ShaderMaterial>(null);
 	const { size, pointer } = useThree();
+
+	const uniforms = useMemo(
+		() => ({
+			uTime: {
+				value: 0.0,
+			},
+			uMouse: {
+				value: new THREE.Vector2(0, 0),
+			},
+			uResolution: {
+				value: new THREE.Vector2(size.width, size.height),
+			},
+		}),
+		[]
+	);
 
 	const cursorPos = new THREE.Vector2();
 
@@ -40,11 +55,7 @@ function Fog({ wispy }: FogProps) {
 			<planeGeometry args={[size.width, size.height]} />
 			<shaderMaterial
 				ref={materialRef}
-				uniforms={{
-					uTime: { value: 0.0 },
-					uMouse: { value: new THREE.Vector2(0, 0) },
-					uResolution: { value: new THREE.Vector2(size.width, size.height) },
-				}}
+				uniforms={uniforms}
 				vertexShader={standardVertexShader}
 				fragmentShader={wispy ? wispyFragmentShader : deepFogFragmentShader}
 				depthTest={false}
