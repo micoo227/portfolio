@@ -67,7 +67,11 @@ function Fog({ wispy }: FogProps) {
 
 export default function Background() {
 	return (
-		<Canvas dpr={window.devicePixelRatio}>
+		<Canvas
+			eventSource={document.getElementById("root")!}
+			eventPrefix="client"
+			dpr={window.devicePixelRatio}
+		>
 			<Fog wispy={false} />
 			<Fog wispy={true} />
 		</Canvas>
