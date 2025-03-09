@@ -26,7 +26,7 @@ function App() {
 					<div className="col-start-1 col-span-full xl:col-start-2 row-start-2 row-span-full">
 						{isMenuOpen && breakpoint == "mobile" ? (
 							<ul className="flex md:hidden flex-col gap-6 text-2xl">
-								<NavbarLinks />
+								<NavbarLinks setIsMenuOpen={setIsMenuOpen} />
 							</ul>
 						) : (
 							<Routes>

@@ -1,19 +1,35 @@
 import { Link } from "react-router";
 
-const NavbarLinks = () => {
+interface NavbarLinksProps {
+	setIsMenuOpen?: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+const NavbarLinks = ({ setIsMenuOpen }: NavbarLinksProps) => {
+	const setMenuClosed = () => {
+		if (setIsMenuOpen) setIsMenuOpen(false);
+	};
+
 	return (
 		<>
 			<li>
-				<Link to="/tech">Tech</Link>
+				<Link to="/tech" onClick={setMenuClosed}>
+					Tech
+				</Link>
 			</li>
 			<li>
-				<Link to="/art">Art</Link>
+				<Link to="/art" onClick={setMenuClosed}>
+					Art
+				</Link>
 			</li>
 			<li>
-				<Link to="/info">Info</Link>
+				<Link to="/info" onClick={setMenuClosed}>
+					Info
+				</Link>
 			</li>
 			<li>
-				<Link to="/contact">Contact</Link>
+				<Link to="/contact" onClick={setMenuClosed}>
+					Contact
+				</Link>
 			</li>
 		</>
 	);
