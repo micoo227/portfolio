@@ -1,50 +1,19 @@
-const NavbarLinks = () => {
-	const onLinkClick = (path: string, e: React.MouseEvent) => {
-		window.history.pushState(null, "", path);
-		e.preventDefault();
-	};
+import { Link } from "react-router";
 
+const NavbarLinks = () => {
 	return (
 		<>
 			<li>
-				<a
-					href="/tech"
-					onClick={(e) => {
-						onLinkClick("/tech", e);
-					}}
-				>
-					Tech
-				</a>
+				<Link to="/tech">Tech</Link>
 			</li>
 			<li>
-				<a
-					href="/art"
-					onClick={(e) => {
-						onLinkClick("/art", e);
-					}}
-				>
-					Art
-				</a>
+				<Link to="/art">Art</Link>
 			</li>
 			<li>
-				<a
-					href="/info"
-					onClick={(e) => {
-						onLinkClick("/info", e);
-					}}
-				>
-					Info
-				</a>
+				<Link to="/info">Info</Link>
 			</li>
 			<li>
-				<a
-					href="/contact"
-					onClick={(e) => {
-						onLinkClick("/contact", e);
-					}}
-				>
-					Contact
-				</a>
+				<Link to="/contact">Contact</Link>
 			</li>
 		</>
 	);
