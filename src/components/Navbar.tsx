@@ -7,7 +7,7 @@ interface NavbarProps {
 
 const Navbar = ({ isMenuOpen, setIsMenuOpen }: NavbarProps) => {
 	return (
-		<nav className="z-10">
+		<nav>
 			<ul className="hidden md:flex justify-between flex-row xl:flex-col gap-x-10 xl:gap-[2vw] xl:text-2xl 2xl:text-4xl">
 				<NavbarLinks />
 			</ul>
