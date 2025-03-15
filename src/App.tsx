@@ -1,7 +1,7 @@
 import { Route, Routes } from "react-router";
 import Background from "./components/Background";
 import Navbar from "./components/Navbar";
-import PageContent from "./components/PageBackdrop";
+import PageContent from "./components/PageContent";
 import { useState } from "react";
 import NavbarLinks from "./components/NavbarLinks";
 import { createBreakpoint } from "react-use";
