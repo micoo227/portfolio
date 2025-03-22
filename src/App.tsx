@@ -5,6 +5,7 @@ import PageContent from "./components/PageContent";
 import { useState } from "react";
 import NavbarLinks from "./components/NavbarLinks";
 import { createBreakpoint } from "react-use";
+import TechPage from "./components/TechPage";
 
 const useBreakpoint = createBreakpoint({ mobile: 0, md: 768 });
 
@@ -30,7 +31,7 @@ function App() {
 							</ul>
 						) : (
 							<Routes>
-								<Route path="tech" element={<PageContent />} />
+								<Route path="tech" element={<TechPage />} />
 								<Route path="art" element={<PageContent />} />
 								<Route path="info" element={<PageContent />} />
 								<Route path="contact" element={<PageContent />} />
