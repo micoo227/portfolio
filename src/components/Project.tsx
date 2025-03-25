@@ -19,7 +19,7 @@ export default function Project({
 	github,
 	itchio,
 	youtube,
-	technologies = [],
+	technologies,
 }: ProjectProps) {
 	return (
 		<div className="mx-4 h-30 text-slate-400 rounded-3xl">
@@ -54,7 +54,7 @@ export default function Project({
 					</div>
 					{description}
 					{technologies.length > 0 && (
-						<div className="flex gap-2 mt-1">
+						<div className="flex flex-wrap gap-2 mt-1">
 							{technologies.map((name, i) => {
 								return <Technology name={name} key={i} />;
 							})}
