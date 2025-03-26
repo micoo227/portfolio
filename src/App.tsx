@@ -19,26 +19,33 @@ function App() {
 		<>
 			<Background />
 			<div className="fixed inset-[3vw]">
-				<div className="grid justify-between grid-cols-[auto_min-content] xl:grid-cols-[auto_50rem] grid-rows-[min-content_1fr] gap-y-[3vw] content-start size-full font-medusa-gothic">
-					<h1 className="text-2xl xl:text-4xl 2xl:text-6xl text-nowrap font-bold z-10">
-						Michael Renda
-					</h1>
-					<div className="self-center xl:self-start col-start-2 xl:col-start-1 z-10">
-						<Navbar isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
+				<div className="flex flex-col gap-[3vw] size-full font-medusa-gothic">
+					<div className="flex justify-between items-center">
+						<h1 className="text-2xl xl:text-4xl 2xl:text-6xl text-nowrap font-bold z-10">
+							Michael Renda
+						</h1>
+						<div className="xl:hidden z-10">
+							<Navbar isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
+						</div>
 					</div>
-					<div className="col-start-1 col-span-full xl:col-start-2 row-start-2 row-span-full">
-						{isMenuOpen && breakpoint == "mobile" ? (
-							<ul className="flex md:hidden flex-col gap-6 text-2xl z-10">
-								<NavbarLinks setIsMenuOpen={setIsMenuOpen} />
-							</ul>
-						) : (
-							<Routes>
-								<Route path="tech" element={<TechPage />} />
-								<Route path="art" element={<ArtPage />} />
-								<Route path="info" element={<InfoPage />} />
-								<Route path="contact" element={<PageContent />} />
-							</Routes>
-						)}
+					<div className="flex justify-between size-full">
+						<div className="hidden xl:block z-10">
+							<Navbar isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
+						</div>
+						<div className="size-full xl:w-[50rem]">
+							{isMenuOpen && breakpoint == "mobile" ? (
+								<ul className="flex md:hidden flex-col gap-6 text-2xl z-10">
+									<NavbarLinks setIsMenuOpen={setIsMenuOpen} />
+								</ul>
+							) : (
+								<Routes>
+									<Route path="tech" element={<TechPage />} />
+									<Route path="art" element={<ArtPage />} />
+									<Route path="info" element={<InfoPage />} />
+									<Route path="contact" element={<PageContent />} />
+								</Routes>
+							)}
+						</div>
 					</div>
 				</div>
 			</div>
