@@ -22,11 +22,11 @@ export default function Project({
 	technologies,
 }: ProjectProps) {
 	return (
-		<div className="mx-4 h-30 text-slate-400 rounded-3xl">
+		<div className="mx-4 text-slate-400">
 			<div className="flex flex-col items-start sm:flex-row gap-10 p-5">
 				{imgPath && (
 					<div>
-						<img className="rounded" src={imgPath}></img>
+						<img className="rounded-sm" src={imgPath}></img>
 					</div>
 				)}
 				<div

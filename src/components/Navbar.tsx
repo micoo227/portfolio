@@ -13,7 +13,7 @@ const Navbar = ({ isMenuOpen, setIsMenuOpen }: NavbarProps) => {
 			</ul>
 
 			<button
-				className="flex md:hidden"
+				className="flex md:hidden cursor-pointer"
 				onClick={() => {
 					setIsMenuOpen(!isMenuOpen);
 				}}
