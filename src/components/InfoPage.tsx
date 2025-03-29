@@ -29,18 +29,20 @@ export default function InfoPage() {
 						location="Rocky Hill, CT"
 						date="June 2023 - Present"
 						bullets={[
-							`Lead development of web app utilizing the MEAN stack and A-Frame,
-					        allowing Marine Corps instructors to create immersive and educational
-					        XR experiences`,
-							`Developed iOS app employing photogrammetry to scan and convert
-					        real-world objects into 3D models`,
-							`Implement customer-requested enhancements of systems modeling/troubleshooting
-                            software coded in C++/Java`,
-							`Travel to various client sites and technical conferences to deliver software,
-                            provide training, and market products`,
+							`Spearheading the development of a web application using the MEAN stack 
+							and A-Frame, empowering Marine Corps instructors to craft immersive XR 
+							experiences for enhanced training`,
+							`Engineered an iOS app leveraging photogrammetry to transform real-world 
+							objects into high-fidelity 3D models, streamlining digital asset creation`,
+							`Implement customer-driven enhancements to systems modeling and troubleshooting 
+							software (C++/Java), significantly improving performance and user satisfaction`,
+							`Represent the company at client sites and technical conferences, delivering 
+							targeted software training and driving product adoption through strategic 
+							marketing initiatives`,
 						]}
 						technologies={[
 							"TypeScript",
+							"JavaScript",
 							"Angular",
 							"Nest.js",
 							"MongoDB",
