@@ -1,13 +1,13 @@
 import { Route, Routes } from "react-router";
 import Background from "./components/Background";
 import Navbar from "./components/Navbar";
-import PageContent from "./components/PageContent";
 import { useState } from "react";
 import NavbarLinks from "./components/NavbarLinks";
 import { createBreakpoint } from "react-use";
 import TechPage from "./components/TechPage";
 import ArtPage from "./components/ArtPage";
 import InfoPage from "./components/InfoPage";
+import ContactPage from "./components/ContactPage";
 
 const useBreakpoint = createBreakpoint({ mobile: 0, md: 768 });
 
@@ -42,7 +42,7 @@ function App() {
 									<Route path="tech" element={<TechPage />} />
 									<Route path="art" element={<ArtPage />} />
 									<Route path="info" element={<InfoPage />} />
-									<Route path="contact" element={<PageContent />} />
+									<Route path="contact" element={<ContactPage />} />
 								</Routes>
 							)}
 						</div>
