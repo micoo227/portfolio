@@ -12,17 +12,17 @@ export default function InfoPage() {
 					I am a Wesleyan University graduate with dual degrees in Computer
 					Science and Economics, which have fueled my passion for innovative
 					software engineering and analytical problem-solving. Beyond my
-					professional pursuits, I thrive on creativity and personal
-					growth—whether I'm mastering complex code, practicing guitar, pushing
-					my limits in fitness, or diving into new learning adventures. This
-					blend of technical knowledge and diverse interests inspires me to
+					professional pursuits, I thrive on creativity and personal growth —
+					whether I'm mastering complex code, practicing guitar, pushing my
+					limits in fitness, or diving into new learning adventures. This blend
+					of technical knowledge and diverse interests inspires me to
 					continuously explore, adapt, and drive meaningful progress in every
 					aspect of my life.
 				</p>
 				<h2 className="m-auto text-4xl font-semibold text-slate-300">
 					Experience
 				</h2>
-				<div className="flex flex-col gap-5 px-2 sm:px-10">
+				<div className="flex flex-col gap-10 px-2 sm:px-10">
 					<WorkExperience
 						title="Software Engineer II"
 						company="Qualtech Systems, Inc."
