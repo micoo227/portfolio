@@ -12,6 +12,10 @@ interface FogProps {
 	wispy: boolean;
 }
 
+interface BackgroundProps {
+	setLoaded: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
 function Fog({ wispy }: FogProps) {
 	const materialRef = useRef<THREE.ShaderMaterial>(null);
 	const { size, pointer } = useThree();
@@ -65,12 +69,13 @@ function Fog({ wispy }: FogProps) {
 	);
 }
 
-export default function Background() {
+export default function Background({ setLoaded }: BackgroundProps) {
 	return (
 		<Canvas
 			eventSource={document.getElementById("root")!}
 			eventPrefix="client"
 			dpr={window.devicePixelRatio}
+			onCreated={() => setLoaded(true)}
 		>
 			<Fog wispy={false} />
 			<Fog wispy={true} />
