@@ -1,6 +1,7 @@
 import { FaGithub, FaItchIo } from "react-icons/fa";
 import Technology from "./Technology";
 import { ImYoutube } from "react-icons/im";
+import { MemoizedImage } from "./MemoizedAssets";
 
 interface ProjectProps {
 	imgPath?: string;
@@ -26,7 +27,7 @@ export default function Project({
 			<div className="flex flex-col items-start sm:flex-row gap-10 p-5">
 				{imgPath && (
 					<div>
-						<img className="rounded-sm" src={imgPath}></img>
+						<MemoizedImage src={imgPath} styling="rounded-sm" />
 					</div>
 				)}
 				<div
