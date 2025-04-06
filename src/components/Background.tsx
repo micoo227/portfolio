@@ -74,7 +74,7 @@ export default function Background({ setLoaded }: BackgroundProps) {
 		<Canvas
 			eventSource={document.getElementById("root")!}
 			eventPrefix="client"
-			dpr={window.devicePixelRatio}
+			dpr={1}
 			onCreated={() => setLoaded(true)}
 		>
 			<Fog wispy={false} />
