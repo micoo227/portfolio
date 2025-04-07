@@ -6,7 +6,8 @@ import {
 	wispyFragmentShader,
 } from "../config/shaders";
 import gsap from "gsap";
-import { useMemo, useRef } from "react";
+import { useMemo, useRef, useState } from "react";
+import { PerformanceMonitor } from "@react-three/drei";
 
 interface FogProps {
 	wispy: boolean;
@@ -18,7 +19,7 @@ interface BackgroundProps {
 
 function Fog({ wispy }: FogProps) {
 	const materialRef = useRef<THREE.ShaderMaterial>(null);
-	const { size, pointer } = useThree();
+	const { size, pointer, gl } = useThree();
 
 	const uniforms = useMemo(
 		() => ({
@@ -29,15 +30,18 @@ function Fog({ wispy }: FogProps) {
 				value: new THREE.Vector2(0, 0),
 			},
 			uResolution: {
-				value: new THREE.Vector2(size.width, size.height),
+				value: new THREE.Vector2(
+					size.width * gl.getPixelRatio(),
+					size.height * gl.getPixelRatio()
+				),
 			},
 		}),
 		[]
 	);
 
-	const cursorPos = new THREE.Vector2();
+	const cursorPos = useMemo(() => new THREE.Vector2(), []);
 
-	useFrame(({ clock, size }) => {
+	useFrame(({ clock, size, gl }) => {
 		if (materialRef.current) {
 			gsap.to(cursorPos, {
 				x: pointer.x,
@@ -48,8 +52,8 @@ function Fog({ wispy }: FogProps) {
 			materialRef.current.uniforms.uTime.value = clock.getElapsedTime();
 			materialRef.current.uniforms.uMouse.value.set(cursorPos.x, cursorPos.y);
 			materialRef.current.uniforms.uResolution.value.set(
-				size.width,
-				size.height
+				size.width * gl.getPixelRatio(),
+				size.height * gl.getPixelRatio()
 			);
 		}
 	});
@@ -70,13 +74,22 @@ function Fog({ wispy }: FogProps) {
 }
 
 export default function Background({ setLoaded }: BackgroundProps) {
+	const [dpr, setDpr] = useState(0.1);
+
 	return (
 		<Canvas
 			eventSource={document.getElementById("root")!}
 			eventPrefix="client"
-			dpr={1}
+			dpr={dpr}
 			onCreated={() => setLoaded(true)}
 		>
+			<PerformanceMonitor
+				factor={0}
+				ms={100}
+				onChange={({ factor }) =>
+					setDpr(0.1 + (window.devicePixelRatio - 0.1) * factor)
+				}
+			/>
 			<Fog wispy={false} />
 			<Fog wispy={true} />
 		</Canvas>
