@@ -6,7 +6,7 @@ import {
 	wispyFragmentShader,
 } from "../config/shaders";
 import gsap from "gsap";
-import { useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { PerformanceMonitor } from "@react-three/drei";
 
 interface FogProps {
@@ -76,22 +76,40 @@ function Fog({ wispy }: FogProps) {
 export default function Background({ setLoaded }: BackgroundProps) {
 	const [dpr, setDpr] = useState(0.1);
 
+	useEffect(() => {
+		// Canvas height can be incorrect for mobile landscape mode; this fixes that
+		const setVhProperty = () => {
+			const vh = window.innerHeight * 0.01;
+			document.documentElement.style.setProperty("--vh", `${vh}px`);
+		};
+
+		setVhProperty();
+
+		window.addEventListener("resize", setVhProperty);
+		return () => window.removeEventListener("resize", setVhProperty);
+	}, []);
+
 	return (
-		<Canvas
-			eventSource={document.getElementById("root")!}
-			eventPrefix="client"
-			dpr={dpr}
-			onCreated={() => setLoaded(true)}
+		<div
+			className="fixed inset-0"
+			style={{ height: "calc(var(--vh, 1vh) * 100)" }}
 		>
-			<PerformanceMonitor
-				factor={0}
-				ms={100}
-				onChange={({ factor }) =>
-					setDpr(0.1 + (window.devicePixelRatio - 0.1) * factor)
-				}
-			/>
-			<Fog wispy={false} />
-			<Fog wispy={true} />
-		</Canvas>
+			<Canvas
+				eventSource={document.getElementById("root")!}
+				eventPrefix="client"
+				dpr={dpr}
+				onCreated={() => setLoaded(true)}
+			>
+				<PerformanceMonitor
+					factor={0}
+					ms={100}
+					onChange={({ factor }) =>
+						setDpr(0.1 + (window.devicePixelRatio - 0.1) * factor)
+					}
+				/>
+				<Fog wispy={false} />
+				<Fog wispy={true} />
+			</Canvas>
+		</div>
 	);
 }

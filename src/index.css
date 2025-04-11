@@ -88,6 +88,8 @@
 	font-style: normal;
 }
 
+@custom-variant sm-h (@media (min-height: 500px));
+
 html,
 body,
 #root {
