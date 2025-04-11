@@ -7,10 +7,10 @@ export default function ContactPage() {
 
 	return (
 		<PageContent fixedSize>
-			<div className="size-full px-2 sm:px-10 flex flex-col justify-between gap-5 text-slate-300">
+			<div className="size-full px-2 sm:px-10 flex flex-row sm-h:flex-col justify-evenly sm-h:justify-between gap-5 text-slate-300">
 				<form
 					onSubmit={handleSubmit}
-					className="max-h-[80%] w-full flex flex-col gap-5"
+					className="max-h-[80%] w-[60%] sm-h:w-full flex flex-col gap-5"
 				>
 					<input
 						id="email"
@@ -44,7 +44,7 @@ export default function ContactPage() {
 						<span className="mx-auto">Thanks for getting in touch!</span>
 					)}
 				</form>
-				<div className="flex justify-evenly mb-10">
+				<div className="sticky top-10 flex flex-col h-fit sm-h:flex-row gap-3 justify-evenly sm-h:mb-10">
 					<a
 						href="https://github.com/micoo227"
 						target="_blank"

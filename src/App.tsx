@@ -17,7 +17,7 @@ function App() {
 	const breakpoint = useBreakpoint();
 
 	return (
-		<>
+		<div className="fixed inset-0">
 			<Background setLoaded={setLoaded} />
 			{loaded && (
 				<div className="fixed inset-[3vw] animate-fade-in">
@@ -52,7 +52,7 @@ function App() {
 					</div>
 				</div>
 			)}
-		</>
+		</div>
 	);
 }
 
