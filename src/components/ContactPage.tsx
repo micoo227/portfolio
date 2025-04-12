@@ -36,10 +36,11 @@ export default function ContactPage() {
 					<button
 						type="submit"
 						disabled={state.submitting}
-						className="rounded-lg py-1 bg-cyan-600/60 cursor-pointer transition hover:bg-cyan-600/80"
+						className="rounded-lg py-1 bg-cyan-600/60 cursor-pointer transition hover:bg-cyan-600/80 disabled:opacity-50"
 					>
 						Send
 					</button>
+					{state.submitting && <span className="mx-auto">Submitting...</span>}
 					{state.succeeded && (
 						<span className="mx-auto">Thanks for getting in touch!</span>
 					)}
