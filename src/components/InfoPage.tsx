@@ -29,16 +29,14 @@ export default function InfoPage() {
 						location="Rocky Hill, CT"
 						date="June 2023 - Present"
 						bullets={[
-							`Spearheading the development of a web application using the MEAN stack 
-							and A-Frame, empowering Marine Corps instructors to craft immersive XR 
-							experiences for enhanced training`,
-							`Engineered an iOS app leveraging photogrammetry to transform real-world 
-							objects into high-fidelity 3D models, streamlining digital asset creation`,
-							`Implement customer-driven enhancements to systems modeling and troubleshooting 
-							software (C++/Java), significantly improving performance and user satisfaction`,
-							`Represent the company at client sites and technical conferences, delivering 
-							targeted software training and driving product adoption through strategic 
-							marketing initiatives`,
+							`Lead the development of a web app that empowers Marine Corps instructors 
+							to craft immersive XR experiences for enhanced training`,
+							`Engineered a complimentary iOS native app leveraging photogrammetry to transform 
+							real-world objects into high-fidelity 3D models, streamlining digital asset creation`,
+							`Interface with government stakeholders to design and implement requested features 
+							for systems modeling and troubleshooting software, significantly improving user satisfaction`,
+							`Build UI and prompt engineering logic for a military-facing web app that uses 
+							LLMs to generate quizzes, flashcards, and other activities from uploaded documents`,
 						]}
 						technologies={[
 							"TypeScript",
@@ -82,14 +80,8 @@ export default function InfoPage() {
 						location="Nashville, TN"
 						date="Summer 2022"
 						bullets={[
-							`Collaborated to support global tech initiatives, artist promotion, and
-                            concert planning`,
-							`Participated in varied corporate, industry, informational, and job shadowing
-                            meetings/experiences`,
-							`Developed valuable insight through project planning/presentation and exposure
-                            to company dynamics`,
-							`Initiated resourceful support such as acquisition of AWS Cloud Practitioner
-                            certification`,
+							`Constructed dashboards/reports to monitor network metrics and 
+							collaborated with team members to troubleshoot and optimize infrastructure`,
 						]}
 						technologies={["Network Monitoring", "Amazon Web Services"]}
 					/>
@@ -99,12 +91,7 @@ export default function InfoPage() {
 						location="Campbell, CA"
 						date="April 2021 - September 2021"
 						bullets={[
-							`Planned diverse lessons for K-12 STEAM topics of Roblox Studio, Blender,
-                            Rocket League, and Unity with C#`,
-							`Multitasked with meticulous detail to meet corporate standards and achieve
-                            professional goals`,
-							`Adapted to a dynamic work environment through written/oral communication
-                            and problem solving skills`,
+							`Planned and taught K-12 STEAM lessons on Roblox Studio, Unity with C#, and Blender`,
 						]}
 						technologies={["Roblox Studio", "Lua", "Blender", "Unity", "C#"]}
 					/>

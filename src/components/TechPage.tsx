@@ -69,6 +69,19 @@ export default function TechPage() {
 					github="https://github.com/micoo227/robin-hood-hashing/tree/main"
 					technologies={["Go"]}
 				/>
+				<Project
+					title="MikeCraft (Work in Progress)"
+					description={
+						<p>
+							A Minecraft clone built from scratch using C++ and the GLFW
+							(OpenGL) library. The project aims to replicate core features of
+							Minecraft, including terrain generation, block placement/removal,
+							and lighting effects.
+						</p>
+					}
+					github="https://github.com/micoo227/MikeCraft"
+					technologies={["C++", "OpenGL"]}
+				/>
 			</div>
 		</PageContent>
 	);
